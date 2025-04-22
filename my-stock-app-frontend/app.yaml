@@ -1,0 +1,16 @@
+runtime: nodejs20
+
+service: default
+
+handlers:
+- url: /(.*\.(gif|png|jpg|css|js)(|\.map))$
+  static_files: dist/my-stock-app-frontend/browser/\1
+  upload: dist/my-stock-app-frontend/browser/(.*)(|\.map)
+
+- url: /(.*)
+  static_files: dist/my-stock-app-frontend/browser/index.html
+  upload: dist/my-stock-app-frontend/browser/index.html
+
+- url: /(.*\.(woff|woff2))$
+  static_files: dist/my-stock-app-frontend/browser/media/\1
+  upload: dist/my-stock-app-frontend/browser/media/(.*)

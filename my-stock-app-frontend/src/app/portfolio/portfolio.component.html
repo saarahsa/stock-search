@@ -1,0 +1,83 @@
+<div>
+  <div class="alert-message-container mt-0" *ngIf="showBuyAlert">
+    <ngb-alert [dismissible]="true" class="alert-message" type="success" (closed)="dismissAlert()">
+      {{tickerTransacted}} bought successfully.
+    </ngb-alert>
+  </div>
+  <div class="alert-message-container mt-0" *ngIf="showSellAlert">
+    <ngb-alert [dismissible]="true" class="alert-message" type="danger" (closed)="dismissAlert()">
+      {{tickerTransacted}} sold successfully.
+    </ngb-alert>
+  </div>
+  <div class="my-portfolio-container">
+    <div class="my-portfolio">
+      <p class="my-portfolio-text">My Portfolio</p>
+      <mat-progress-spinner class="mat-progress-spinner" *ngIf="isLoading" mode="indeterminate"
+        style="margin:auto auto;" diameter="60"></mat-progress-spinner>
+      <p *ngIf="portfolioItems.length===0 && !isLoading" class="my-wallet">Money in Wallet:
+        ${{wallet.balance.toFixed(2)}} </p>
+      <p *ngIf="portfolioItems.length>0 && !isLoading" class="my-wallet">Money in Wallet:
+        ${{portfolioItems[0].walletMoney.toFixed(2)}}</p>
+    </div>
+  </div>
+  <div class="container" *ngIf="portfolioItems.length > 0 && !isLoading">
+    <div class="card" *ngFor="let item of portfolioItems">
+      <div class="card-header" (click)="onWatchlistItemClick(item.ticker)" style="cursor: pointer;">
+        <span class="ticker">{{ item.ticker }}</span> <span class="name"> {{ item.name }}</span>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-8">
+                <p>Quantity:</p>
+                <p>Avg. Cost / Share:</p>
+                <p>Total Cost:</p>
+              </div>
+              <div class="col">
+                <p>{{ item.quantity.toFixed(2) }}</p>
+                <p>{{ (item.totalCost / item.quantity).toFixed(2) }}</p>
+                <p>{{ item.totalCost.toFixed(2) }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-8">
+                <p>Change:</p>
+                <p>Current Price:</p>
+                <p>Market Value:</p>
+              </div>
+              <div class="col"
+                [ngClass]="{'positive': item.c - (item.totalCost / item.quantity) > 0, 'negative': item.c - (item.totalCost / item.quantity) < 0, 'neutral': item.c - (item.totalCost / item.quantity) === 0}">
+                <span *ngIf="item.c - (item.totalCost / item.quantity) > 0" class="icon"><i
+                    class="bi bi-caret-up-fill"></i></span>
+                <span *ngIf="item.c - (item.totalCost / item.quantity) < 0" class="icon"><i
+                    class="bi bi-caret-down-fill"></i></span>
+                <span *ngIf="item.c - (item.totalCost / item.quantity) == 0"><span class="change">{{ (item.c - (item.totalCost / item.quantity)).toFixed(2) }}</span></span>
+                <span class="change">{{ (item.c - (item.totalCost / item.quantity)).toFixed(2) }}</span>
+                <p class="current-price">{{ item.c.toFixed(2) }}</p>
+                <p class="market-value">{{ (item.c * item.quantity).toFixed(2) }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btn-primary me-2" (click)="open(content, item, 'Buy')">Buy</button>
+        <button type="button" class="btn btn-danger" (click)="open(content, item, 'Sell')">Sell</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert-message-container" *ngIf="portfolioItems.length === 0 && !isLoading">
+    <ngb-alert [dismissible]="false" class="alert-message">
+      Currently you don't have any stock.
+    </ngb-alert>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <app-buy-sell-model (portfolioItemUpdated)="reloadPortfolio()" [portfolioItem]="selectedItem" [action]="action"
+    (actionWithTicker)="handleActionWithTicker($event)"></app-buy-sell-model>
+</ng-template>

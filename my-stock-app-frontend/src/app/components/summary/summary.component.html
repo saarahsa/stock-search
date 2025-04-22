@@ -1,0 +1,34 @@
+<div class="row container mt-4">
+    <div class="col-md-6">
+        <div class="row ml-5">
+            <div class="col-12">
+                <span><b>High Price: </b>{{ quote.h }}</span><br>
+                <span><b>Low Price: </b>{{ quote.l }} </span><br>
+                <span><b>Open Price: </b>{{ quote.o }}</span><br>
+                <span><b>Prev. Close: </b>{{ quote.c }}</span><br>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <h5 style="color:#46464a; padding-bottom:2px; "><u>About the company</u></h5>
+                <p><b>IPO Start Date: </b> {{ companyProfile.ipo }}</p>
+                <p><b>Industry: </b>{{ companyProfile.finnhubIndustry }}</p>
+                <p><b>Webpage: </b><a href="{{companyProfile.weburl}}" target="_blank">{{ companyProfile.weburl }}</a></p>
+                <p><b>Company Peers: </b></p>
+                <div *ngFor="let peer of peers; let last = last" style="display: inline-flex;">
+                    <a routerLink="'/search/'+peer" (click)="onWatchlistItemClick(peer)" style="margin-right: 5px;">{{peer}}</a>
+                    <span *ngIf="!last"> </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <highcharts-chart 
+        [Highcharts]="hourlyCharts"
+        [options]="hourlyOptions"
+        [constructorType]="stockChart"
+        style="display: block; width: 100%; height: 400px;">
+        </highcharts-chart>
+            
+    </div>
+</div>

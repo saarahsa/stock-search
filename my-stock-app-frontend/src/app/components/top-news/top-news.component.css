@@ -1,0 +1,40 @@
+img {
+    height: auto;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.container {
+    padding: 13px;
+}
+
+.card{
+    padding:10px;
+    background-color: #fbfbfb;
+}
+
+.card-title {
+    max-height: calc(2 * 1.2em); 
+    line-height: 1.2em;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    font-size: small;
+    color: #4b5054;
+    text-align: center;
+}
+
+.modal-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+}
+
+.newsTitle{
+    color:#343434;
+    font-weight: 400 !important;
+}
+
+.summary{
+    color: #343434
+}
+

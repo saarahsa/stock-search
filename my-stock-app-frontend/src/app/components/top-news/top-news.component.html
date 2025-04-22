@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6" *ngFor="let news of newsData">
+            <div class="card mb-4" (click)="openModal(news)" style="cursor: pointer;">
+                <div class="row no-gutters">
+                    <div class="col-md-3 sm-6"> <img [src]="news.image" class="card-img-top" alt="News Image"> </div>
+                    <div class="col-md-9 sm-6 d-flex align-items-center justify-content-center">
+                        <p class="card-title">{{ news.headline }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #contentModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-news-title">{{modalData?.source}}</h4><br>
+        <p style="font-size: small;" class="modal-title pl-2 text-muted" id="modal-sub-title"><b>{{ modalData.datetime *
+                1000 | date:'MMMM d, y' }}</b></p>
+        <span class="cross" aria-label="Close" (click)="modal.dismiss('Cross click')"
+            style="font-size: 12px; text-decoration: underline; color: blue; cursor: pointer;">
+            <i class="bi bi-x"></i>
+        </span>
+    </div>
+
+    <div class="modal-body">
+        <div class="container">
+            <div class="row">
+                <p class="newsTitle" style="color: #343434; font-size:medium"><b>{{modalData.headline}}</b></p>
+                <p class="summary" style="color: #414040; font-size: small;">{{modalData.summary}}</p>
+                <p class="text-muted" style="font-size: small; padding-bottom: 40px;">For more details, click <a
+                        target='_blank' href="{{modalData.url}}">here</a></p>
+            </div>
+            <div class="row">
+                <div class="card" style="width: 100%; height:fit-content">
+                    <p class='text-muted' style="font-size:small;">Share </p>
+                    <div class="social m-2">
+                        <a class="twitter-share-button ml-2" target="_blank"
+                            href="https://twitter.com/intent/tweet?text={{modalData.headline}}&url={{modalData.url}}">
+                            <fa-icon [icon]="faTwit" [styles]="{'stroke': '#00acee', 'color': '#000000'}"
+                                size="3x"></fa-icon></a>
+                        <a target="_blank"
+                            href="https://www.facebook.com/sharer/sharer.php?u={{modalData.url}};src=sdkpreparse"
+                            class="fb-xfbml-parse-ignore"><fa-icon [icon]="faFace"
+                                [styles]="{'stroke': '#3b5998', 'color': '#3b5998'}" size="3x"></fa-icon></a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,32 @@
+<div>
+  <div class="my-watchlist-container">
+    <div class="my-watchlist">My Watchlist</div>
+  </div>
+  <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" style="margin:auto auto;"
+  diameter="60"></mat-progress-spinner>
+  <div *ngIf="watchlistItems.length > 0 && !isLoading">
+    <div class="container">
+      <div class="row watchlist-row" *ngFor="let item of watchlistItems" (click)="onWatchlistItemClick(item.ticker)" style="cursor: pointer;">
+        <div class="col watchlist-item">
+          <span class="cross-icon">
+            <i class="bi bi-x" (click)="deleteWatchListItem(item.ticker, $event)"></i>
+          </span>
+          <p class="tick">{{ item.ticker }}</p>
+          <p class="name">{{ item.name }}</p>
+        </div>
+        <div class="col" [ngClass]="{'positive': item.d > 0, 'negative': item.d < 0}">
+          <p class="current-price">{{ item.c.toFixed(2) }}</p>
+          <span *ngIf="item.d > 0" class="icon"><i class="bi bi-caret-up-fill"></i></span>
+          <span *ngIf="item.d < 0" class="icon"><i class="bi bi-caret-down-fill"></i></span>
+          <span class="change">{{ item.d.toFixed(2) }} &#40;{{ item.dp.toFixed(2) }}%&#41;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="alert-message-container" *ngIf="watchlistItems.length === 0 && !isLoading">
+    <ngb-alert [dismissible]="false" class="alert-message">
+      Currently you don't have any stocks in your watchlist.
+    </ngb-alert>
+  </div>
+</div>
+

@@ -1,0 +1,111 @@
+.my-watchlist-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 14vh;
+}
+
+.my-watchlist {
+    width: 70%;
+    text-align: left;
+    padding: 20px;
+    font-size: 35px;
+    font-weight: 400;
+    color: #46464a;
+}
+
+.alert-message {
+    text-align: center;
+    width: 68%;
+    padding: 15px;
+    align-items: center;
+    font-size: 12px;
+    color: #535358;
+}
+
+.alert-message-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin-left: 15px; */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.watchlist-row {
+    border: 1px solid #85818161;
+    border-radius: 8px;
+    padding: 0px;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    width: 77%;
+    align-items: center;
+}
+
+.watchlist-item p {
+    text-align: left;
+    color: #46464a;
+    padding-bottom: 7px;
+}
+
+.watchlist-item .tick {
+    font-size: 26px;
+    font-weight: 400 !important;
+}
+
+.col {
+    padding: 10px, 6px;
+    text-align: left;
+}
+
+
+.current-price {
+    padding-top: 12px;
+    font-size: 26px;
+    font-weight: 400 !important;
+}
+
+.change {
+    padding-top: 10px;
+    padding: 12px, 6px;
+    text-align: left;
+}
+
+.positive {
+    color: green;
+}
+
+.negative {
+    color: red;
+}
+
+.icon {
+    margin-right: 5px;
+}
+
+.cross-icon {
+    cursor: pointer;
+    padding: 2px;
+}
+
+.cross-icon i {
+    font-size: 12px;
+}
+
+@media (max-width: 768px) {
+    .watchlist-row {
+        width:97%
+    }
+    .my-watchlist {
+        width: 100%;
+        font-size: 28px;
+    }
+    .alert-message {
+        width:93%;
+    }
+}

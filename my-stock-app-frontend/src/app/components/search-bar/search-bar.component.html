@@ -1,0 +1,25 @@
+<div class="stock-search-container">  
+    <span class="stock-search">STOCK SEARCH</span>
+  </div>
+  <div class="search-container">
+    <div class="search-bar">
+      <form class="example-form" (ngSubmit)="onSearchClick()">
+      <input type="text" class="form-control" placeholder="Enter stock ticker symbol" [formControl]="symbol" [matAutocomplete]="auto" matInput>
+      <!-- [matAutocomplete]="auto" matInput -->
+        <mat-autocomplete (optionSelected)="onSearchClick()" #auto="matAutocomplete">
+          <mat-option *ngIf="searchLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{ option }} | {{optionsName[option]}}
+          </mat-option>
+      </mat-autocomplete>
+      </form>
+      <button  class="btn btn-primary rounded-circle" type="submit" (click)="onSearchClick()">
+        <i class="bi bi-search"></i>
+    </button>
+    <button type="reset" class="btn btn-primary rounded-circle" (click)="$event.preventDefault(); onReset()">
+        <i class="bi bi-x icon-large"></i>
+    </button>
+    </div>
+  </div>
+  
+  

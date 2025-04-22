@@ -1,0 +1,13 @@
+<app-search-bar (searchClicked)="fetchData($event)" (resetClicked)="resetSummary()"></app-search-bar>
+<mat-progress-spinner *ngIf="isLoading" mode="indeterminate" style="margin:10vh auto;"
+    diameter="60"></mat-progress-spinner>
+<div *ngIf="!isLoading">
+    <app-company-profile *ngIf="summary" [summary]="summary" [lastTime]="lastTime"
+        [currentDate]="currentDate" [quote]="quote"></app-company-profile>
+    <!-- (reloadSummary)="reloadCompanySummary(summary.companyProfile.ticker)" -->
+</div>
+<div class="alert-message-container" *ngIf="isPresent === false && !isLoading">
+    <ngb-alert [dismissible]="false" type="danger" class="alert-message">
+        No data found. Please enter a valid Ticker.
+    </ngb-alert>
+</div>

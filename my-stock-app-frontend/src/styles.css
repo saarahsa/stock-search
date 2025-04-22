@@ -1,0 +1,32 @@
+@import '../node_modules/@fortawesome/fontawesome-free/css/all.css';
+@import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
+
+
+/* You can add global styles to this file, and also import other style files */
+html,
+body,
+p,
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+app-root {
+  height: 100%;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Sarabun", sans-serif; }
+

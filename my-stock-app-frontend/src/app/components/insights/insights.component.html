@@ -1,0 +1,37 @@
+<div id="insider-card">
+    <h5 class="container">
+        Insider Sentiments
+    </h5>
+    <div class="info-container">
+        <div class="info-row">
+            <span class="label">{{ name }}</span>
+            <span class="label">MSPR</span>
+            <span class="label" id="name">Change</span>
+        </div>
+        <div class="info-row">
+            <span class="label">Total</span>
+            <span class="value" id="ticker1">{{totalMSPR.toFixed(2)}}</span>
+            <span class="value" id="ticker1">{{totalChange.toFixed(2)}}</span>
+        </div>
+        <div class="info-row">
+            <span class="label">Positive</span>
+            <span class="value" id="exchange">{{positiveMSPR.toFixed(2)}}</span>
+            <span class="value" id="exchange">{{positiveChange.toFixed(2)}}</span>
+        </div>
+        <div class="info-row">
+            <span class="label">Negative</span>
+            <span class="value" id="ipo">{{negativeMSPR.toFixed(2)}}</span>
+            <span class="value" id="ipo">{{negativeChange.toFixed(2)}}</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptionsR"
+            style="width: 100%; height: 400px; display: block;"></highcharts-chart>
+    </div>
+    <div class="col-md-6">
+        <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptionsE"
+            style="width: 100%; height: 400px; display: block;"></highcharts-chart>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="modal-header small-header">
+    <h4 *ngIf="portfolioItem" class="modal-title" id="modal-basic-title">{{portfolioItem.ticker.toUpperCase()}}</h4>
+    <h4 *ngIf="summaryItem" class="modal-title" id="modal-basic-title">
+        {{summaryItem.companyProfile.ticker.toUpperCase()}}</h4>
+    <span class="cross" aria-label="Close" (click)="closeModal()"
+        style="font-size: 12px; text-decoration: underline; color: blue;">
+        <i class="bi bi-x"></i>
+    </span>
+</div>
+<div class="modal-body small-body">
+    <div *ngIf="portfolioItem">
+        <p>Current Price: {{ portfolioItem.c.toFixed(2) }}</p>
+        <p>Wallet Money: {{ portfolioItem.walletMoney.toFixed(2) }}</p>
+    </div>
+    <div *ngIf="summaryItem">
+        <p>Current Price: {{ summaryItem.quote.c.toFixed(2) }}</p>
+        <p>Money in Wallet: {{ wallet.balance.toFixed(2) }}</p>
+    </div>
+    <form class="mb-3">
+        <div class="row">
+            <div class="col-auto">
+                <label for="quantity">Quantity:</label>
+            </div>
+            <div class="col">
+                <div class="input-group">
+                    <input id="quantity" type="number" class="form-control small-input" placeholder="0" name="quantity"
+                        [formControl]="quantity" required min="0" value="0" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div
+        *ngIf="getButtonLabel() === 'Buy' && (portfolioItem && (quantity.value != null && +quantity.value * (portfolioItem?.c || 0) > (portfolioItem?.walletMoney || 0)) || 
+        (summaryItem && (quantity.value != null && +quantity.value * (summaryItem?.quote?.c || 0) > (wallet.balance || 0))))">
+        <p style="color: red;">Not enough money in wallet!</p>
+    </div>
+
+    <div
+        *ngIf="getButtonLabel() === 'Sell' && (portfolioItem && (quantity.value != null && +quantity.value > (portfolioItem?.quantity|| 0)) || (summaryItem && (quantity.value != null && +quantity.value > (portfolioQuantity || 0))))">
+        <p style="color: red;">You cannot sell the stocks that you don't have!</p>
+    </div>
+
+</div>
+<div class="modal-footer small-footer" *ngIf="getButtonLabel() === 'Buy'">
+    <div class="total-wrapper">
+        <span class="total">Total: {{ (((quantity && quantity.value != null) ? +quantity.value : 0) * ((portfolioItem &&
+            +portfolioItem.c) || (summaryItem && summaryItem.quote && +summaryItem.quote.c) || 0)).toFixed(2) }}</span>
+    </div>
+    <button type="button" class="btn btn-success" [disabled]="!quantity || quantity.value==null || +quantity.value === 0 ||
+                (portfolioItem && +quantity.value * portfolioItem.c > portfolioItem.walletMoney)  || 
+                (summaryItem && +quantity.value * (summaryItem.quote.c || 0) > (wallet.balance || 0))"
+        (click)="onBuy()">
+        Buy
+    </button>
+</div>
+
+<div class="modal-footer small-footer" *ngIf="getButtonLabel() === 'Sell'">
+    <div class="total-wrapper">
+        <span class="total">Total: {{ (((quantity && quantity.value != null) ? +quantity.value : 0) * ((portfolioItem &&
+            +portfolioItem.c) || (summaryItem && summaryItem.quote && +summaryItem.quote.c) || 0)).toFixed(2)}}</span>
+    </div>
+    <button type="button" class="btn btn-danger"
+        [disabled]="!quantity || quantity.value==null || +quantity.value === 0 ||
+                (portfolioItem && +quantity.value > portfolioItem.quantity) || (summaryItem && +quantity.value > (portfolioQuantity || 0))" (click)="onSell()">
+        Sell
+    </button>
+</div>

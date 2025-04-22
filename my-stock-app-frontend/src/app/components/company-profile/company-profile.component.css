@@ -1,0 +1,135 @@
+.alert-message-container {
+  position: relative;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1%;
+}
+
+.alert-message {
+  text-align: center;
+  width: 68%;
+  padding: 15px;
+  align-items: center;
+  font-size: 12px;
+  color: #535358;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.row {
+  width: 75%;
+}
+
+.col {
+  text-align: center;
+  align-items: center;
+  width: 33%
+}
+
+.tick {
+  font-size: 28px;
+  color: #46464a;
+  align-items: center;
+  font-weight: 500;
+}
+
+.name {
+  font-size: 20px;
+  color: #646b72;
+  font-weight: 400;
+}
+
+small {
+  color: #646b72;
+}
+
+.current-price {
+  font-size: 28px;
+  font-weight: 500 !important;
+}
+
+.change {
+  font-size: 20px;
+  text-align: left;
+  font-weight: 400;
+}
+
+.tick .bi-star {
+  font-size: 20px;
+  padding-bottom: 20px;
+}
+
+.tick .bi-star-fill {
+  font-size: 20px;
+  color: #ffdd04
+}
+
+.img {
+  width: 30%
+}
+
+.positive {
+  color: green;
+}
+
+.negative {
+  color: red;
+}
+
+.icon {
+  margin-right: 5px;
+}
+
+.tab-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.tab-container-content {
+  width: 70%;
+  background-color: white;
+}
+
+.mat-tab-label {
+  padding: px;
+}
+
+@media (max-width: 768px) {
+  .row {
+    width: 100%;
+  }
+
+  .tick {
+    font-size: 24px;
+  }
+
+  .name {
+    font-size: 16px;
+  }
+
+  .current-price {
+    font-size: 24px;
+  }
+
+  .change {
+    font-size: 16px;
+  }
+
+  .img {
+    width: 60%
+  }
+
+  .tab-container-content {
+    width: 100%;
+  }
+}

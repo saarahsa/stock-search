@@ -1,0 +1,77 @@
+<div class="alert-message-container mt-0" *ngIf="showWatchlistAlert">
+  <ngb-alert [dismissible]="true" class="alert-message" type="success" (closed)="dismissAlert()">
+    {{tickerToWatchlist}} added to Watchlist.
+  </ngb-alert>
+</div>
+<div class="alert-message-container mt-0" *ngIf="showBuyAlert">
+  <ngb-alert [dismissible]="true" class="alert-message" type="success" (closed)="dismissAlert()">
+    {{tickerTransacted}} bought successfully.
+  </ngb-alert>
+</div>
+<div class="alert-message-container mt-0" *ngIf="showSellAlert">
+  <ngb-alert [dismissible]="true" class="alert-message" type="danger" (closed)="dismissAlert()">
+    {{tickerTransacted}} sold successfully.
+  </ngb-alert>
+</div>
+<div class="container pt-5" *ngIf="summary">
+  <div class="row justify-content-center text-center">
+    <div class="col">
+      <p class="tick mb-0">{{ summary.companyProfile.ticker}}
+        <i *ngIf="starIconFilled===false" class="bi bi-star" (click)="toggleStarIcon()"></i>
+        <i *ngIf="starIconFilled===true" class="bi bi-star-fill" (click)="toggleStarIcon()"></i>
+      </p>
+      <p class="name mt-2">{{ summary.companyProfile.name }}</p>
+      <small class="mt-0">{{ summary.companyProfile.exchange }}</small>
+      <div class="mt-2">
+        <button type="button" class="btn btn-success btn-sm me-2" (click)="open(content, summary, 'Buy')">Buy</button>
+        <button *ngIf="sellButton" type="button" class="btn btn-danger btn-sm"
+          (click)="open(content, summary, 'Sell')">Sell</button>
+      </div>
+    </div>
+    <div class="col d-flex justify-content-center align-items-start" style="align-items: center;">
+      <img src="{{ summary.companyProfile.logo }}" class="img" alt="Company Logo">
+    </div>
+    <div class="col" [ngClass]="{'positive': quote.d > 0, 'negative': quote.d < 0}">
+      <p class="current-price">{{ quote.c.toFixed(2) }}</p>
+      <span *ngIf="quote.d > 0" class="icon"><i class="bi bi-caret-up-fill"></i></span>
+      <span *ngIf="quote.d < 0" class="icon"><i class="bi bi-caret-down-fill"></i></span>
+      <span class="change mt-2">{{ quote.d.toFixed(2) }} &#40;{{ quote.dp.toFixed(2) }}%&#41;</span>
+      <p class="mt-2" style="color: #646b72">{{ currentDate | date:'yyyy-MM-dd HH:mm:ss' }}</p>
+    </div>
+  </div>
+</div>
+<div class="container mt-2" *ngIf="summary">
+  <div class="row justify-content-center text-center" mt-0>
+    <div *ngIf=" summary.status == 'open'">
+      <p class="text-success" style="color: lightgreen;">Market is Open</p>
+    </div>
+    <div *ngIf="summary.status == 'closed'">
+      <p class="text-danger" style="color: lightcoral;">Market Closed at {{lastTime}}</p>
+    </div>
+  </div>
+</div>
+<div class="tab-container mt-2" *ngIf="summary">
+  <mat-tab-group class="tab-container-content" mat-align-tabs="center" dynamicHeight mat-stretch-tabs color="primary">
+    <mat-tab class="tabs" label="Summary" color="primary">
+      <app-summary [quote]="quote" [companyProfile]="summary.companyProfile" [hourlyData]="summary.hourlyData"
+        [peers]="summary.peers" [ticker]="summary.companyProfile.ticker"></app-summary>
+    </mat-tab>
+    <mat-tab label="Top News">
+      <app-top-news [newsData]="summary.news"></app-top-news>
+    </mat-tab>
+    <mat-tab label="Charts">
+      <app-chart [chartData]="summary.polygonData" [name]="summary.companyProfile.name"
+        [ticker]="summary.companyProfile.ticker"></app-chart>
+    </mat-tab>
+    <mat-tab label="Insights">
+      <app-insights [name]="summary.companyProfile.name" [insiderData]="summary.insider"
+        [recommendationData]="summary.recommendation" [epsData]="summary.earnings"></app-insights>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+
+<ng-template #content let-modal>
+  <app-buy-sell-model [summaryItem]="summary" (portfolioItemUpdated)="triggerReload() " [action]="action"
+    (actionWithTicker)="handleActionWithTicker($event)" [portfolioQuantity]="portfolioQuantity"></app-buy-sell-model>
+</ng-template>

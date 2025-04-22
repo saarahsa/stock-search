@@ -1,0 +1,42 @@
+.modal-footer {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+}
+
+.total {
+    justify-self: start;
+    margin-right: 10px;
+}
+
+.cross {
+    background-color: transparent;
+    color: blue !important;
+    font-size: small !important;
+    text-decoration: underline !important;
+    border-bottom: 0.7px solid blue;
+    cursor: pointer;
+    padding: 0;
+}
+
+.modal-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+}
+
+.modal-footer .button {
+    font-size: 10px;
+}
+
+.small-header {
+    padding: 0.5rem;
+}
+
+.small-footer {
+    padding: 0.2rem;
+}
+
+.small-body {
+    padding: 0.5rem 1.5rem;
+}
